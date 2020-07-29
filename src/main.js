@@ -9,7 +9,7 @@ const createUserRank = () => {
         <p class="profile__rating">Movie Buff</p>
         <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
     </section>`
-  )
+  );
 };
 
 const createMainNavigation = () => {
@@ -23,7 +23,7 @@ const createMainNavigation = () => {
         </div>
         <a href="#stats" class="main-navigation__additional">Stats</a>
     </nav>`
-  )
+  );
 };
 
 const createSortFilms = () => {
@@ -33,7 +33,7 @@ const createSortFilms = () => {
       <li><a href="#" class="sort__button">Sort by date</a></li>
       <li><a href="#" class="sort__button">Sort by rating</a></li>
     </ul>`
-  )
+  );
 };
 
 const createFilmsContainer = () => {
@@ -303,24 +303,24 @@ render(siteMainElement, createFilmsContainer(), `beforeend`);
 const films = document.querySelector(`.films`);
 const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = films.querySelector(`.films-list__container`);
-for (let i=0; i < TASK_FILMS; i++) {
+for (let i = 0; i < TASK_FILMS; i++) {
   render(filmsListContainer, createFilmsList(), `beforeend`);
-};
+}
 
 
 render(filmsList, createLoadMoreButtonTemplate(), `beforeend`);
-for (let i=0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
+for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
   render (films, createExtraFilmsContainer(), `beforeend`);
-};
+}
 
 const filmsListExtraContainer = films.querySelectorAll(`.films-list--extra`);
 filmsListExtraContainer.forEach((el) => {
   const filmsListExtra = el.querySelector(`.films-list__container`);
   for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
-  render(filmsListExtra, createExtraCardFilm(), `beforeend`);
-  };
+    render(filmsListExtra, createExtraCardFilm(), `beforeend`);
+  }
 });
 
 const footer = document.querySelector(`.footer`);
 render(footer, createFooterStatistics(), `beforeend`);
-render(footer, createPopupFilmDetails, 'afterend');
+render(footer, createPopupFilmDetails, `afterend`);
