@@ -310,7 +310,7 @@ for (let i = 0; i < TASK_FILMS; i++) {
 
 render(filmsList, createLoadMoreButtonTemplate(), `beforeend`);
 for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
-  render (films, createExtraFilmsContainer(), `beforeend`);
+  render(films, createExtraFilmsContainer(), `beforeend`);
 }
 
 const filmsListExtraContainer = films.querySelectorAll(`.films-list--extra`);
