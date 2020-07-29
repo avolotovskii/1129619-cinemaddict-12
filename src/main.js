@@ -288,39 +288,39 @@ const createPopupFilmDetails = () => {
   );
 };
 
-const render = (container, template, place) => {
+const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
 };
 
 const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 
-render(siteHeaderElement, createUserRank(), `beforeend`);
+render(siteHeaderElement, createUserRank());
 render(siteMainElement, createMainNavigation(), `afterbegin`);
-render(siteMainElement, createSortFilms(), `beforeend`);
-render(siteMainElement, createFilmsContainer(), `beforeend`);
+render(siteMainElement, createSortFilms());
+render(siteMainElement, createFilmsContainer());
 
 const films = document.querySelector(`.films`);
 const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = films.querySelector(`.films-list__container`);
 for (let i = 0; i < TASK_FILMS; i++) {
-  render(filmsListContainer, createFilmsList(), `beforeend`);
+  render(filmsListContainer, createFilmsList());
 }
 
 
-render(filmsList, createLoadMoreButtonTemplate(), `beforeend`);
+render(filmsList, createLoadMoreButtonTemplate());
 for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
-  render(films, createExtraFilmsContainer(), `beforeend`);
+  render(films, createExtraFilmsContainer());
 }
 
 const filmsListExtraContainer = films.querySelectorAll(`.films-list--extra`);
 filmsListExtraContainer.forEach((el) => {
   const filmsListExtra = el.querySelector(`.films-list__container`);
-  for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
-    render(filmsListExtra, createExtraCardFilm(), `beforeend`);
-  }
+  Array(EXTRA_FILM_CONTAINERS_AMOUNT).fill(``).forEach(() => {
+    render(filmsListExtra, createExtraCardFilm());
+  });
 });
 
 const footer = document.querySelector(`.footer`);
-render(footer, createFooterStatistics(), `beforeend`);
+render(footer, createFooterStatistics());
 render(footer, createPopupFilmDetails, `afterend`);
