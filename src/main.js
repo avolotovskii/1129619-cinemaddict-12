@@ -303,15 +303,14 @@ render(siteMainElement, createFilmsContainer());
 const films = document.querySelector(`.films`);
 const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = films.querySelector(`.films-list__container`);
-for (let i = 0; i < TASK_FILMS; i++) {
+Array(TASK_FILMS).fill(``).forEach(() => {
   render(filmsListContainer, createFilmsList());
-}
-
+});
 
 render(filmsList, createLoadMoreButtonTemplate());
-for (let i = 0; i < EXTRA_FILM_CONTAINERS_AMOUNT; i++) {
+Array(EXTRA_FILM_CONTAINERS_AMOUNT).fill(``).forEach(() => {
   render(films, createExtraFilmsContainer());
-}
+});
 
 const filmsListExtraContainer = films.querySelectorAll(`.films-list--extra`);
 filmsListExtraContainer.forEach((el) => {
