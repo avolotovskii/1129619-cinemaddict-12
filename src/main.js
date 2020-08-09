@@ -8,9 +8,12 @@ import {createLoadMoreButtonTemplate} from "./view/load-more-button";
 import {createExtraCardFilm} from "./view/extra-card-film";
 import {createFooterStatistics} from "./view/footer-statistics";
 import {createPopupFilmDetails} from "./view/popup-film-details";
+import {generateFilms} from "./mock/film.js";
 
 const TASK_FILMS = 5;
 const EXTRA_FILM_CONTAINERS_AMOUNT = 2;
+
+const mockFilms = generateFilms(TASK_FILMS);
 
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
@@ -27,8 +30,8 @@ render(siteMainElement, createFilmsContainer());
 const films = document.querySelector(`.films`);
 const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = films.querySelector(`.films-list__container`);
-Array(TASK_FILMS).fill(``).forEach(() => {
-  render(filmsListContainer, createFilmsList());
+Array(TASK_FILMS).fill(``).forEach((el, i) => {
+  render(filmsListContainer, createFilmsList(mockFilms[i]));
 });
 
 render(filmsList, createLoadMoreButtonTemplate());
@@ -46,4 +49,4 @@ filmsListExtraContainer.forEach((el) => {
 
 const footer = document.querySelector(`.footer`);
 render(footer, createFooterStatistics());
-render(footer, createPopupFilmDetails, `afterend`);
+render(footer, createPopupFilmDetails(mockFilms[0]), `afterend`);
