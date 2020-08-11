@@ -1,31 +1,28 @@
 const getRandomIntegerNumber = (min, max) => {
-  return min + Math.floor(Math.random() * (max - min));
+  return min + Math.floor(Math.random() * ((max + 1) - min));
 };
 
-const getRandomArrayItem = (array) => {
-  const randomIndex = getRandomIntegerNumber(0, array.length);
+const getRandomArrayItem = (data) => {
+  const randomIndex = getRandomIntegerNumber(0, data.length - 1);
 
-  return array[randomIndex];
+  return data[randomIndex];
 };
 
 const getRandomDecimalNumber = (min, max) => {
   return min + Math.random() * (max - min);
 };
 
-const shuffleArray = (array) => {
+const shuffleArray = (data) => {
   let j;
-  let temp;
-  for (let i = array.length - 1; i > 0; i--) {
+  for (let i = data.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
-    temp = array[j];
-    array[j] = array[i];
-    array[i] = temp;
+    [data[j], data[i]] = [data[i], data[j]];
   }
-  return array;
+  return data;
 };
 
-const getRandomArray = (array, number) => {
-  const arrayCopy = array.slice();
+const getRandomArray = (data, number) => {
+  const arrayCopy = data.slice();
   const randomArray = shuffleArray(arrayCopy).slice(0, number);
   return randomArray;
 };
@@ -46,6 +43,29 @@ const getShortDescription = (text, maxLength) => {
   return shortDescription;
 };
 
+const getRandomDate = (date1, date2) => {
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  date1 = new Date(date1).getTime();
+  date2 = new Date(date2).getTime();
+  if (date1 > date2) {
+    return new Date(getRandomArbitrary(date2, date1)).toLocaleDateString();
+  } else {
+    return new Date(getRandomArbitrary(date1, date2)).toLocaleDateString();
+  }
+};
+
+const createFilmGenresMarkup = (genres) => {
+  return genres
+  .map((genre) => {
+    return (
+      `<span class="film-details__genre">${genre}</span>`
+    );
+  })
+  .join(`\n`);
+};
+
 
 export {
   getRandomIntegerNumber,
@@ -53,5 +73,7 @@ export {
   getRandomDecimalNumber,
   getRandomArray,
   getFilmDuration,
-  getShortDescription
+  getShortDescription,
+  getRandomDate,
+  createFilmGenresMarkup
 };

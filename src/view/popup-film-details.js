@@ -1,5 +1,11 @@
+// закомментировал блоки что бы выполнить замечание по переносу генирируемых данных из компонента. Все сломалось. Данные от сюда перенес в film.js
+
 import {createCommentsTemplate} from "./comments.js";
-import {generateComments} from "../mock/comment.js";
+// import {generateComments} from "../mock/comment.js";
+// import {createFilmGenresMarkup} from "../utils.js";
+import {genresMarkup,
+  commentsLength,
+  comments} from "../mock/film";
 
 export const createPopupFilmDetails = (film) => {
   const {title,
@@ -14,17 +20,16 @@ export const createPopupFilmDetails = (film) => {
     releaseCountry,
     duration,
     genres,
-    description,
-    commentsAmount} = film;
+    description} = film;
 
-  const genre = genres[0];
+  // const genresMarkup = createFilmGenresMarkup(genres);
 
-  const comments = generateComments(commentsAmount);
+  // const comments = generateComments(commentsAmount);
+  // const commentsLength = comments.length;
 
   const commentsList = comments.map((comment) => {
-    createCommentsTemplate(comment);
+    return createCommentsTemplate(comment);
   }).join(`\n`);
-  // console.log(createCommentsTemplate(comments));
 
   return (
     `<section class="film-details">
@@ -78,11 +83,8 @@ export const createPopupFilmDetails = (film) => {
                 <td class="film-details__cell">${releaseCountry}</td>
               </tr>
               <tr class="film-details__row">
-                <td class="film-details__term">Genres</td>
-                <td class="film-details__cell">
-                  <span class="film-details__genre">${genre}</span>
-                  <span class="film-details__genre">${genre}</span>
-                  <span class="film-details__genre">${genre}</span></td>
+                <td class="film-details__term">${genres.length === 1 ? `Genre` : `Genres`}</td>
+                <td class="film-details__cell">${genresMarkup}</td>
               </tr>
             </table>
 
@@ -106,7 +108,7 @@ export const createPopupFilmDetails = (film) => {
 
       <div class="form-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">4</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${commentsLength}</span></h3>
 
           <ul class="film-details__comments-list">
             ${commentsList}
