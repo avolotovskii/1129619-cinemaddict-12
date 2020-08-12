@@ -43,19 +43,6 @@ const getShortDescription = (text, maxLength) => {
   return shortDescription;
 };
 
-const getRandomDate = (date1, date2) => {
-  function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-  date1 = new Date(date1).getTime();
-  date2 = new Date(date2).getTime();
-  if (date1 > date2) {
-    return new Date(getRandomArbitrary(date2, date1)).toLocaleDateString();
-  } else {
-    return new Date(getRandomArbitrary(date1, date2)).toLocaleDateString();
-  }
-};
-
 const createFilmGenresMarkup = (genres) => {
   return genres
   .map((genre) => {
@@ -66,6 +53,45 @@ const createFilmGenresMarkup = (genres) => {
   .join(`\n`);
 };
 
+const getMonthName = (monthNumber) => {
+  const months = [
+    `January`,
+    `Fabruary`,
+    `March`,
+    `April`,
+    `May`,
+    `June`,
+    `July`,
+    `August`,
+    `September`,
+    `October`,
+    `November`,
+    `December`,
+  ];
+  return months[monthNumber];
+};
+
+const formatDate = (date) => {
+  const timestamp = Date.parse(date);
+  const parsedDate = new Date(timestamp);
+  const day = parsedDate.getDate();
+  const month = getMonthName(parsedDate.getMonth());
+  const year = parsedDate.getFullYear();
+  const fullDate = `${day} ${month} ${year}`;
+  return fullDate;
+};
+
+const formatCommentDate = (date) => {
+  const timestamp = Date.parse(date);
+  const parsedDate = new Date(timestamp);
+  const day = parsedDate.getDate();
+  const month = parsedDate.getMonth();
+  const year = parsedDate.getFullYear();
+  const hours = parsedDate.getHours();
+  const minutes = parsedDate.getMinutes();
+  const commentDate = `${year}/${month}/${day} ${hours}:${minutes}`;
+  return commentDate;
+};
 
 export {
   getRandomIntegerNumber,
@@ -74,6 +100,7 @@ export {
   getRandomArray,
   getFilmDuration,
   getShortDescription,
-  getRandomDate,
+  formatDate,
+  formatCommentDate,
   createFilmGenresMarkup
 };

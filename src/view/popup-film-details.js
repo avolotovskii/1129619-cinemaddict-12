@@ -1,11 +1,6 @@
-// закомментировал блоки что бы выполнить замечание по переносу генирируемых данных из компонента. Все сломалось. Данные от сюда перенес в film.js
-
 import {createCommentsTemplate} from "./comments.js";
-// import {generateComments} from "../mock/comment.js";
-// import {createFilmGenresMarkup} from "../utils.js";
-import {genresMarkup,
-  commentsLength,
-  comments} from "../mock/film";
+import {generateComments} from "../mock/comment.js";
+import {createFilmGenresMarkup} from "../utils.js";
 
 export const createPopupFilmDetails = (film) => {
   const {title,
@@ -20,12 +15,14 @@ export const createPopupFilmDetails = (film) => {
     releaseCountry,
     duration,
     genres,
-    description} = film;
+    description,
+    commentsAmount
+  } = film;
 
-  // const genresMarkup = createFilmGenresMarkup(genres);
+  const genresMarkup = createFilmGenresMarkup(genres);
 
-  // const comments = generateComments(commentsAmount);
-  // const commentsLength = comments.length;
+  const comments = generateComments(commentsAmount);
+  const commentsLength = comments.length;
 
   const commentsList = comments.map((comment) => {
     return createCommentsTemplate(comment);

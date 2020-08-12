@@ -15,8 +15,7 @@ import {
   MIN_WRITERS,
   MAX_WRITERS,
   MIN_ACTORS,
-  MIN_YEARS_RANGE,
-  MAX_YEARS_RANGE,
+  DATES,
   MIN_FILM_DURATION,
   MAX_FILM_DURATION,
   MIN_GENRES,
@@ -31,7 +30,7 @@ import {
   getRandomDecimalNumber,
   getRandomArray,
   getFilmDuration,
-  getRandomDate
+  formatDate,
 } from "../utils.js";
 
 const generateFilm = () => {
@@ -44,7 +43,7 @@ const generateFilm = () => {
     director: getRandomArrayItem(DIRECTORS),
     writers: getRandomArray(WRITERS, getRandomIntegerNumber(MIN_WRITERS, MAX_WRITERS)),
     actors: getRandomArray(ACTORS, getRandomIntegerNumber(MIN_ACTORS, ACTORS.length)),
-    releaseDate: getRandomDate(MIN_YEARS_RANGE, MAX_YEARS_RANGE),
+    releaseDate: formatDate(getRandomArrayItem(DATES)),
     releaseCountry: getRandomArrayItem(RELEASE_COUNTRIES),
     duration: getFilmDuration(getRandomIntegerNumber(MIN_FILM_DURATION, MAX_FILM_DURATION)),
     genres: getRandomArray(GENRES, getRandomIntegerNumber(MIN_GENRES, GENRES.length)),
@@ -56,16 +55,6 @@ const generateFilm = () => {
   };
 };
 
-// перенес данные из film.js сюда
-
-import {generateComments} from "../mock/comment.js";
-import {createFilmGenresMarkup} from "../utils.js";
-
-const genresMarkup = createFilmGenresMarkup(generateFilm.genres);
-
-const comments = generateComments(generateFilm.commentsAmount);
-const commentsLength = comments.length;
-
 const generateFilms = (count) => {
   return new Array(count)
   .fill(``)
@@ -73,8 +62,5 @@ const generateFilms = (count) => {
 };
 
 export {
-  generateFilms,
-  genresMarkup,
-  commentsLength,
-  comments
+  generateFilms
 };

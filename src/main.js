@@ -11,6 +11,7 @@ import {createPopupFilmDetails} from "./view/popup-film-details";
 import {generateFilms} from "./mock/film.js";
 import {generateFilters} from "./mock/filters.js";
 
+
 const EXTRA_FILM_CONTAINERS_AMOUNT = 2;
 const TOTAL_FILMS_AMOUNT = 20;
 const FILM_CARDS_AMOUNT_BY_BUTTON = 5;
