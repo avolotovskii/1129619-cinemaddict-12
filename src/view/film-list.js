@@ -2,7 +2,7 @@ import {MAX_DESCRIPTION_DURATION} from "../mock-data.js";
 import {getShortDescription} from "../utils.js";
 
 export const createFilmsList = (film) => {
-  const {title, rating, releaseDate, duration, genres, poster, description, commentsAmount, watchlist, alreadyWatched, isFavorite} = film;
+  const {title, rating, releaseDate, duration, genres, poster, description, comments, watchlist, alreadyWatched, isFavorite} = film;
   const genre = genres[0];
   const shortDescription = getShortDescription(description.join(` `), MAX_DESCRIPTION_DURATION);
   const watchlistButtonActiveClass = watchlist ? `` : `film-card__controls-item--active`;
@@ -20,7 +20,7 @@ export const createFilmsList = (film) => {
       </p>
       <img src="./${poster}" alt="" class="film-card__poster">
       <p class="film-card__description">${shortDescription}</p>
-      <a class="film-card__comments">${commentsAmount} comments</a>
+      <a class="film-card__comments">${comments.length} comments</a>
       <form class="film-card__controls">
         <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${watchlistButtonActiveClass}">Add to watchlist</button>
         <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${alreadyWatchedButtonActiveClass}">Mark as watched</button>

@@ -51,7 +51,6 @@ const generateFilm = () => {
     duration: getFilmDuration(getRandomIntegerNumber(MIN_FILM_DURATION, MAX_FILM_DURATION)),
     genres: getRandomArray(GENRES, getRandomIntegerNumber(MIN_GENRES, GENRES.length)),
     description: getRandomArray(FILM_DESCRIPTIONS, getRandomIntegerNumber(MIN_DESCRIPTION, FILM_DESCRIPTIONS.length)),
-    commentsAmount: getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT),
     watchlist: Math.random() > 0.5,
     alreadyWatched: Math.random() > 0.5,
     isFavorite: Math.random() > 0.5,
