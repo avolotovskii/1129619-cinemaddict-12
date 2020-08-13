@@ -32,6 +32,9 @@ import {
   getFilmDuration,
   formatDate,
 } from "../utils.js";
+import {
+  generateComments
+} from "./comment";
 
 const generateFilm = () => {
   return {
@@ -52,6 +55,7 @@ const generateFilm = () => {
     watchlist: Math.random() > 0.5,
     alreadyWatched: Math.random() > 0.5,
     isFavorite: Math.random() > 0.5,
+    comments: generateComments(getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT)),
   };
 };
 

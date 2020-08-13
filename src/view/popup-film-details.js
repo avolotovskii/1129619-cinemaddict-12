@@ -1,5 +1,5 @@
+
 import {createCommentsTemplate} from "./comments.js";
-import {generateComments} from "../mock/comment.js";
 import {createFilmGenresMarkup} from "../utils.js";
 
 export const createPopupFilmDetails = (film) => {
@@ -16,13 +16,10 @@ export const createPopupFilmDetails = (film) => {
     duration,
     genres,
     description,
-    commentsAmount
+    comments,
   } = film;
 
   const genresMarkup = createFilmGenresMarkup(genres);
-
-  const comments = generateComments(commentsAmount);
-  const commentsLength = comments.length;
 
   const commentsList = comments.map((comment) => {
     return createCommentsTemplate(comment);
@@ -105,7 +102,7 @@ export const createPopupFilmDetails = (film) => {
 
       <div class="form-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${commentsLength}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
           <ul class="film-details__comments-list">
             ${commentsList}
