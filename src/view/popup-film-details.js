@@ -1,6 +1,6 @@
 
 import {createCommentsTemplate} from "./comments.js";
-import {createFilmGenresMarkup} from "../utils.js";
+import {createFilmGenresMarkup, createElement} from "../utils.js";
 
 export const createPopupFilmDetails = (film) => {
   const {title,
@@ -143,3 +143,26 @@ export const createPopupFilmDetails = (film) => {
   </section>`
   );
 };
+
+export default class FilmCard {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPopupFilmDetails(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
