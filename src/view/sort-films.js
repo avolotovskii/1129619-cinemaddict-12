@@ -10,7 +10,7 @@ const createSortFilms = () => {
   );
 };
 
-export default class Sorting {
+export default class SortFilms {
   constructor() {
     this._element = null;
   }

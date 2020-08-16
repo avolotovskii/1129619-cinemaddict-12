@@ -1,5 +1,4 @@
-
-import {createCommentsTemplate} from "./comments.js";
+import Comments from "./comments.js";
 import {createFilmGenresMarkup, createElement} from "../utils.js";
 
 export const createPopupFilmDetails = (film) => {
@@ -21,8 +20,8 @@ export const createPopupFilmDetails = (film) => {
 
   const genresMarkup = createFilmGenresMarkup(genres);
 
-  const commentsList = comments.map((comment) => {
-    return createCommentsTemplate(comment);
+  const commentsList = comments.map((commentData) => {
+    return new Comments(commentData).getTemplate();
   }).join(`\n`);
 
   return (
@@ -144,7 +143,7 @@ export const createPopupFilmDetails = (film) => {
   );
 };
 
-export default class FilmCard {
+export default class PopupFilmDetails {
   constructor(film) {
     this._film = film;
     this._element = null;

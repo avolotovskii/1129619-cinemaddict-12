@@ -9,7 +9,7 @@ const createUserRank = () => {
   );
 };
 
-export default class ProfileRating {
+export default class UserRank {
   constructor() {
     this._element = null;
   }

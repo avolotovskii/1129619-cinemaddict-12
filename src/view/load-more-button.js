@@ -2,7 +2,7 @@ import {createElement} from "../utils.js";
 
 const createLoadMoreButtonTemplate = () => `<button class="films-list__show-more">Show more</button>`;
 
-export default class ShowMoreButton {
+export default class LoadMoreButton {
   constructor() {
     this._element = null;
   }

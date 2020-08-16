@@ -9,7 +9,7 @@ export const createExtraFilmsContainer = (title) => {
   );
 };
 
-export default class ExtraFilms {
+export default class ExtraFilmsContainer {
   constructor(title) {
     this._title = title;
     this._element = null;

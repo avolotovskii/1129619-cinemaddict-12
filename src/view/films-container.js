@@ -6,7 +6,7 @@ const createFilmsContainer = () => {
   );
 };
 
-export default class Films {
+export default class FilmsContainer {
   constructor() {
     this._element = null;
   }

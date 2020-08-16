@@ -23,7 +23,7 @@ const createMainNavigation = (filters) => {
   );
 };
 
-export default class Navigation {
+export default class MainNavigation {
   constructor(filters) {
     this._filters = filters;
     this._element = null;
