@@ -1,7 +1,7 @@
 import {MAX_DESCRIPTION_DURATION} from "../mock-data.js";
-import {getShortDescription} from "../utils.js";
+import {createElement, getShortDescription} from "../utils.js";
 
-export const createFilmsList = (film) => {
+export const createFilmsCard = (film) => {
   const {title, rating, releaseDate, duration, genres, poster, description, comments, watchlist, alreadyWatched, isFavorite} = film;
   const genre = genres[0];
   const shortDescription = getShortDescription(description.join(` `), MAX_DESCRIPTION_DURATION);
@@ -29,3 +29,27 @@ export const createFilmsList = (film) => {
     </article>`
   );
 };
+
+export default class FilmCard {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmsCard(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
