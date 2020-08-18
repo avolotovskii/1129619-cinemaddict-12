@@ -8,6 +8,7 @@ import ExtraFilmsContainer from "./view/extra-films-container";
 import LoadMoreButtonTemplate from "./view/load-more-button";
 import FooterStatistics from "./view/footer-statistics";
 import PopupFilmDetails from "./view/popup-film-details";
+import NoFilms from "./view/no-films.js";
 import {generateFilms} from "./mock/film.js";
 import {generateFilters} from "./mock/filters.js";
 import {render, RenderPosition} from "./utils";
@@ -21,8 +22,22 @@ const EXTRA_FILM_CARDS_AMOUNT = 2;
 const renderFilmCard = (filmsListElement, film) => {
   const body = document.querySelector(`body`);
 
-  const onFilmCardElementClick = () => {
+  const openPopup = () => {
     body.appendChild(filmDetails.getElement());
+  };
+
+  const onFilmCardElementClick = () => {
+    openPopup();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  };
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      onFilmDetailsCloseButtonClick();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
   };
 
   const filmCard = new FilmsCard(film);
@@ -49,6 +64,10 @@ const renderFilmCard = (filmsListElement, film) => {
 };
 
 const renderFilms = (filmsContainer, films) => {
+  if (films.length === 0) {
+    render(filmsContainer.getElement(), new NoFilms().getElement(), RenderPosition.BEFOREEND);
+    return;
+  }
   render(filmsContainer.getElement(), new FilmsList().getElement(), RenderPosition.BEFOREEND);
 
   const filmsListElement = filmsContainer.getElement().querySelector(`.films-list__container`);
@@ -107,4 +126,8 @@ renderExtraFilms(`Top Rated`);
 renderExtraFilms(`Most Commented`);
 
 const siteFooter = document.querySelector(`.footer`);
-render(siteFooter, new FooterStatistics(TOTAL_FILMS_AMOUNT).getElement(), RenderPosition.BEFOREEND);
+if (films.length !== 0) {
+  render(siteFooter, new FooterStatistics(TOTAL_FILMS_AMOUNT.TOTAL).getElement(), RenderPosition.BEFOREEND);
+} else {
+  render(siteFooter, new FooterStatistics(0).getElement(), RenderPosition.BEFOREEND);
+}
