@@ -56,6 +56,7 @@ const renderFilmCard = (filmsListElement, film) => {
 
   const onFilmDetailsCloseButtonClick = () => {
     body.removeChild(filmDetails.getElement());
+    document.removeEventListener(`keydown`, onEscKeyDown);
   };
 
   filmDetailsCloseButton.addEventListener(`click`, onFilmDetailsCloseButtonClick);
