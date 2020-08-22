@@ -1,5 +1,6 @@
+import AbstractView from "./abstract.js";
 import Comments from "./comments.js";
-import {createFilmGenresMarkup, createElement} from "../utils.js";
+import {createFilmGenresMarkup} from "../utils/common.js";
 
 export const createPopupFilmDetails = (film) => {
   const {title,
@@ -143,25 +144,13 @@ export const createPopupFilmDetails = (film) => {
   );
 };
 
-export default class PopupFilmDetails {
+export default class PopupFilmDetails extends AbstractView {
   constructor(film) {
+    super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createPopupFilmDetails(this._film);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

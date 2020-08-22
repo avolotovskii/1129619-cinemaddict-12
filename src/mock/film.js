@@ -31,7 +31,7 @@ import {
   getRandomArray,
   getFilmDuration,
   formatDate,
-} from "../utils.js";
+} from "../utils/common.js";
 import {
   generateComments
 } from "./comment";
