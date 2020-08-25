@@ -1,6 +1,6 @@
 import FilmsCard from "../view/film-card";
 import FilmsList from "../view/films-list.js";
-import LoadMoreButtonTemplate from "../view/load-more-button";
+import LoadMoreButton from "../view/load-more-button";
 import PopupFilmDetails from "../view/popup-film-details";
 import NoFilms from "../view/no-films.js";
 import {render, openPopup, closePopup, remove, RenderPosition} from "../utils/render.js";
@@ -52,9 +52,9 @@ const renderFilmCard = (filmsListElement, film) => {
 export default class MovieList {
   constructor(container) {
     this._container = container;
-    this._filmsListComponent = new FilmsList();
-    this._showMoreButtonComponent = new LoadMoreButtonTemplate();
-    this._noFilmsComponent = new NoFilms();
+    this._filmsList = new FilmsList();
+    this._loadMoreButton = new LoadMoreButton();
+    this._noFilms = new NoFilms();
   }
 
   render(films) {
@@ -74,7 +74,7 @@ export default class MovieList {
         renderFilmCard(filmsListElement, filmCard);
       });
 
-    render(container, this._showMoreButton, RenderPosition.BEFOREEND);
+    render(container, this._loadMoreButton, RenderPosition.BEFOREEND);
 
     const onShowMoreButtonClick = () => {
       const prevFilmsCount = shownFilmCardsAmount;
@@ -84,12 +84,12 @@ export default class MovieList {
       .forEach((filmCard) => renderFilmCard(filmsListElement, filmCard));
 
       if (shownFilmCardsAmount >= films.length) {
-        remove(this._showMoreButton);
-        this._showMoreButton.removeElement();
+        remove(this._loadMoreButton);
+        this._loadMoreButton.removeElement();
       }
     };
 
-    this._showMoreButton.setClickHandler(() => {
+    this._loadMoreButton.setClickHandler(() => {
       onShowMoreButtonClick();
     });
   }
