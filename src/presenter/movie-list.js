@@ -3,13 +3,22 @@ import FilmsList from "../view/films-list.js";
 import LoadMoreButton from "../view/load-more-button";
 import PopupFilmDetails from "../view/popup-film-details";
 import NoFilms from "../view/no-films.js";
-import {render, openPopup, closePopup, remove, RenderPosition} from "../utils/render.js";
+import {render, remove, RenderPosition} from "../utils/render.js";
 
 const SHOWN_FILM_CARDS_AMOUNT = 5;
 const FILM_CARDS_AMOUNT_BY_BUTTON = 5;
 
 const renderFilmCard = (filmsListElement, film) => {
   const body = document.querySelector(`body`);
+
+  const openPopup = () => {
+    body.appendChild(filmDetails.getElement());
+  };
+
+  const closePopup = () => {
+    body.removeChild(filmDetails.getElement());
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  };
 
   const onFilmCardElementClick = () => {
     openPopup(body, filmDetails);
@@ -20,8 +29,7 @@ const renderFilmCard = (filmsListElement, film) => {
     const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
 
     if (isEscKey) {
-      closePopup(body, filmDetails);
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      closePopup();
     }
   };
 

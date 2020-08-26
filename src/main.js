@@ -4,7 +4,7 @@ import SortFilms from "./view/sort-films";
 import FilmsContainer from "./view/films-container";
 import MovieList from "./presenter/movie-list.js";
 import FooterStatistics from "./view/footer-statistics";
-import ExtraFilms from "./presenter/extra-films.js";
+import ExtraFilms from "./view/extra-films.js";
 import {generateFilms} from "./mock/film.js";
 import {generateFilters} from "./mock/filters.js";
 import {render, RenderPosition} from "./utils/render.js";
