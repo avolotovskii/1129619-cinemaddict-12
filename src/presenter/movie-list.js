@@ -21,7 +21,7 @@ const renderFilmCard = (filmsListElement, film) => {
   };
 
   const onFilmCardElementClick = () => {
-    openPopup(body, filmDetails);
+    openPopup();
     document.addEventListener(`keydown`, onEscKeyDown);
   };
 
@@ -51,7 +51,7 @@ const renderFilmCard = (filmsListElement, film) => {
 
 
   filmDetails.setCloseButtonClickHandler(() => {
-    closePopup(body, filmDetails);
+    closePopup();
   });
 
   render(filmsListElement, filmCard, RenderPosition.BEFOREEND);
