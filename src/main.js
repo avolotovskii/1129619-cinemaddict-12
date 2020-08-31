@@ -1,6 +1,5 @@
 import UserRank from "./view/user-rank";
 import MainNavigation from "./view/main-navigation";
-import SortFilms from "./view/sort-films";
 import FilmsContainer from "./view/films-container";
 import MovieList from "./presenter/movie-list.js";
 import FooterStatistics from "./view/footer-statistics";
@@ -20,7 +19,6 @@ const siteMainElement = document.querySelector(`.main`);
 
 render(siteHeader, new UserRank(), RenderPosition.BEFOREEND);
 render(siteMainElement, new MainNavigation(filters), RenderPosition.BEFOREEND);
-render(siteMainElement, new SortFilms(), RenderPosition.BEFOREEND);
 
 const filmsContainer = new FilmsContainer();
 const movieList = new MovieList(filmsContainer);
