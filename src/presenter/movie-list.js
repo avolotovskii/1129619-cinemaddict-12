@@ -2,7 +2,7 @@ import FilmsList from "../view/films-list.js";
 import SortFilms, {SortType} from "../view/sort-films.js";
 import LoadMoreButton from "../view/load-more-button";
 import NoFilms from "../view/no-films.js";
-import MoveControllers from "../presenter/move-controllers.js";
+import MoveController from "./move-controller.js";
 import {render, remove, RenderPosition} from "../utils/render.js";
 import {getDateFromString} from "../utils/common.js";
 
@@ -11,22 +11,12 @@ const FILM_CARDS_AMOUNT_BY_BUTTON = 5;
 
 const renderFilmCards = (filmsListElement, films, onDataChange, onViewChange) => {
   return films.map((film) => {
-    const movieController = new MoveControllers(filmsListElement, onDataChange, onViewChange);
-
+    const movieController = new MoveController(filmsListElement, onDataChange, onViewChange);
     movieController.render(film);
 
     return movieController;
   });
 };
-
-// const openPopup = () => {
-//   body.appendChild(filmDetails.getElement());
-// };
-
-// const closePopup = () => {
-//   body.removeChild(filmDetails.getElement());
-//   document.removeEventListener(`keydown`, onEscKeyDown);
-// };
 
 const getSortedFilmCards = (films, sortType, from, to) => {
   let sortedFilms = [];
@@ -100,7 +90,7 @@ export default class MovieList {
     render(container, this._sortComponent, RenderPosition.BEFOREEND);
     render(container, this._filmsList, RenderPosition.BEFOREEND);
 
-    const newFilmCards = renderFilmCards(this._filmListElement, this._films.slice(0, this._shownFilmsCount), this._onDateChange, this._onViewChange);
+    const newFilmCards = renderFilmCards(this._filmsListElement, this._films.slice(0, this._shownFilmsCount), this._onDateChange, this._onViewChange);
     this._showedMovie = this._showedMovie.concat(newFilmCards);
 
     this._renderShowMoreButton();

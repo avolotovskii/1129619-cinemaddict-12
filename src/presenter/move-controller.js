@@ -1,11 +1,13 @@
 import FilmCard from "../view/film-card.js";
 import FilmDetails from "../view/popup-film-details.js";
-import {render, openPopup, remove, replace, RenderPosition} from "../utils/render.js";
+import {render, remove, replace, RenderPosition} from "../utils/render.js";
 
 const Mode = {
   DEFAULT: `default`,
   DETAILS: `details`,
 };
+
+const body = document.querySelector(`body`);
 
 export default class MovieController {
   constructor(container, onDataChange, onViewChange) {
@@ -25,6 +27,10 @@ export default class MovieController {
 
     this._filmCard = new FilmCard(film);
     this._filmDetails = new FilmDetails(film);
+
+    const openPopup = () => {
+      body.appendChild(this._filmDetails.getElement());
+    };
 
     const onFilmCardElementClick = () => {
       this._mode = Mode.DETAILS;

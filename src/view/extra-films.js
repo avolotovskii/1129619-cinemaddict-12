@@ -2,7 +2,6 @@ import ExtraFilmsContainer from "./extra-films-container.js";
 import FilmCard from "./film-card.js";
 import FilmDetails from "./popup-film-details.js";
 import {render, openPopup, closePopup, RenderPosition} from "../utils/render.js";
-// import {openPopup, closePopup} from "../presenter/movie-list.js";
 
 
 const renderFilmCard = (filmsListElement, film) => {
