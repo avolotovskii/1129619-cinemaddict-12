@@ -90,7 +90,7 @@ export default class MovieList {
     render(container, this._sortComponent, RenderPosition.BEFOREEND);
     render(container, this._filmsList, RenderPosition.BEFOREEND);
 
-    const newFilmCards = renderFilmCards(this._filmsListElement, this._films.slice(0, this._shownFilmsCount), this._onDateChange, this._onViewChange);
+    const newFilmCards = renderFilmCards(this._filmsListElement, this._films.slice(0, this._shownFilmsCount), this._onDataChange, this._onViewChange);
     this._showedMovie = this._showedMovie.concat(newFilmCards);
 
     this._renderShowMoreButton();
