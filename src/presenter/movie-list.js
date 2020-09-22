@@ -3,11 +3,13 @@ import SortFilms, {SortType} from "../view/sort-films.js";
 import LoadMoreButton from "../view/load-more-button";
 import NoFilms from "../view/no-films.js";
 import MoveController from "./move-controller.js";
+import ExtraFilmsContainer from "../view/extra-films-container.js";
 import {render, remove, RenderPosition} from "../utils/render.js";
 import {getDateFromString} from "../utils/common.js";
 
 const SHOWN_FILM_CARDS_AMOUNT = 5;
 const FILM_CARDS_AMOUNT_BY_BUTTON = 5;
+const FILM_CARDS_EXTRA = 2;
 
 const renderFilmCards = (filmsListElement, films, onDataChange, onViewChange) => {
   return films.map((film) => {
@@ -29,6 +31,9 @@ const getSortedFilmCards = (films, sortType, from, to) => {
     case SortType.RATING:
       sortedFilms = showFilms.sort((a, b) => b.rating - a.rating);
       break;
+    case SortType.COMMENTS:
+      sortedFilms = showFilms.sort((a, b) => b.comments.length - a.comments.length);
+      break;
     case SortType.DEFAULT:
       sortedFilms = showFilms;
       break;
@@ -46,6 +51,8 @@ export default class MovieList {
     this._sortComponent = new SortFilms();
     this._loadMoreButton = new LoadMoreButton();
     this._noFilms = new NoFilms();
+    this._topRatedFilms = new ExtraFilmsContainer(`Top Rated`);
+    this._mostCommentedFilms = new ExtraFilmsContainer(`Most Commented`);
     this._shownFilmsCount = SHOWN_FILM_CARDS_AMOUNT;
     this._filmsListElement = this._filmsList.getElement().querySelector(`.films-list__container`);
 
@@ -100,6 +107,8 @@ export default class MovieList {
     this._renderFilms(films.slice(0, this._shownFilmsCount));
 
     this._renderShowMoreButton();
+    this._renderTopRatedFilms(films);
+    this._renderMostCommentedFilms(films);
   }
 
   _removeFilms() {
@@ -143,5 +152,21 @@ export default class MovieList {
 
   _onFilterChange() {
     this._updateFilms(SHOWN_FILM_CARDS_AMOUNT);
+  }
+
+  _renderTopRatedFilms(films) {
+    const container = this._container.getElement();
+    render(container, this._topRatedFilms, RenderPosition.BEFOREEND);
+    const topRatedFilmsContainer = this._topRatedFilms.getElement().querySelector(`.films-list__container`);
+    const topRatedFilms = getSortedFilmCards(films, SortType.RATING, 0, FILM_CARDS_EXTRA);
+    renderFilmCards(topRatedFilmsContainer, topRatedFilms, this._onDataChange, this._onViewChange);
+  }
+
+  _renderMostCommentedFilms(films) {
+    const container = this._container.getElement();
+    render(container, this._mostCommentedFilms, RenderPosition.BEFOREEND);
+    const mostCommentedFilmsContainer = this._mostCommentedFilms.getElement().querySelector(`.films-list__container`);
+    const mostCommentedFilms = getSortedFilmCards(films, SortType.COMMENTS, 0, FILM_CARDS_EXTRA);
+    renderFilmCards(mostCommentedFilmsContainer, mostCommentedFilms, this._onDataChange, this._onViewChange);
   }
 }

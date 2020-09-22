@@ -55,44 +55,45 @@ export default class MovieController {
 
     this._filmCard.setWatchedButtonClickHandler((evt) => {
       evt.preventDefault();
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         alreadyWatched: !film.alreadyWatched,
       }));
     });
 
     this._filmCard.setWatchlistButtonClickHandler((evt) => {
       evt.preventDefault();
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         watchlist: !film.watchlist,
       }));
     });
 
     this._filmCard.setFavoritesButtonClickHandler((evt) => {
       evt.preventDefault();
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         isFavorite: !film.isFavorite,
       }));
     });
 
     this._filmDetails.setCloseButtonClickHandler(() => {
       remove(this._filmDetails);
+      this._filmDetails.clearCommentData();
       this._mode = Mode.DETAILS;
     });
 
     this._filmDetails.setWatchedButtonClickHandler(() => {
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         alreadyWatched: !film.alreadyWatched,
       }));
     });
 
     this._filmDetails.setWatchlistButtonClickHandler(() => {
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         watchlist: !film.watchlist,
       }));
     });
 
     this._filmDetails.setFavoritesButtonClickHandler(() => {
-      this._onDataChange(film, Object.assign({}, film, {
+      this._onDataChange(this, film, Object.assign({}, film, {
         isFavorite: !film.isFavorite,
       }));
     });
@@ -101,6 +102,33 @@ export default class MovieController {
       const currentEmoji = evt.target.value;
       const emojiContainer = document.querySelector(`.film-details__add-emoji-label`);
       emojiContainer.innerHTML = `<img src="images/emoji/${currentEmoji}.png" width="55" height="55" alt="emoji-${currentEmoji}">`;
+    });
+
+    this._filmDetails.setDeleteButtonClickHandler((evt) => {
+      evt.preventDefault();
+
+      const deleteButton = evt.target;
+      const currentComment = deleteButton.closest(`.film-details__comment`);
+      const commentItems = this._filmDetails.getElement().querySelectorAll(`.film-details__comment`);
+      const commentsList = Array.from(commentItems);
+      const currentCommentIndex = commentsList.indexOf(currentComment);
+      const comments = film.comments;
+      comments.splice(currentCommentIndex, 1);
+
+      this._onDataChange(this, film, Object.assign({}, film, {comments}));
+    });
+
+    this._filmDetails.setAddCommentHandler((evt) => {
+      const isCtrlandEnter = evt.key === `Enter` && (evt.ctrlKey || evt.metaKey);
+
+      if (isCtrlandEnter) {
+        const newComment = this._filmDetails.getCommentData();
+        const newCommentsList = film.comments.concat(newComment);
+
+        this._onDataChange(this, film, Object.assign({}, film, {
+          comments: newCommentsList,
+        }));
+      }
     });
 
     if (oldFilmDetails && oldFilmCard) {
@@ -129,6 +157,7 @@ export default class MovieController {
 
     if (isEscKey) {
       remove(this._filmDetails);
+      this._filmDetails.clearCommentData();
       document.removeEventListener(`keydown`, this._onEscKeyDown);
     }
   }

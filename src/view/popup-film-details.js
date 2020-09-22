@@ -1,21 +1,9 @@
 import AbstractSmart from "./abstract-smart.js";
 import Comments from "./comments.js";
 import {createFilmGenresMarkup} from "../utils/common.js";
-
-const EMOJIS = [`smile`, `sleeping`, `puke`, `angry`];
-
-const createEmoji = (emojiList) => {
-  return emojiList
-  .map((emoji) => {
-    return (
-      `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emoji}" value="${emoji}">
-    <label class="film-details__emoji-label" for="emoji-${emoji}">
-      <img src="./images/emoji/${emoji}.png" width="30" height="30" alt="emoji">
-    </label>`
-    );
-  })
-  .join(`\n`);
-};
+import moment from "moment";
+import {formatCommentDate} from "../utils/common.js";
+import {encode} from "he";
 
 export const createPopupFilmDetails = (film) => {
   const {title,
@@ -39,13 +27,10 @@ export const createPopupFilmDetails = (film) => {
 
   const genresMarkup = createFilmGenresMarkup(genres);
 
-  const commentsList = comments.map((commentData) => {
-    return new Comments(commentData).getTemplate();
-  }).join(`\n`);
-  const emojiList = createEmoji(EMOJIS);
   const watchlistButtonChecked = watchlist ? `` : `checked`;
   const alreadyWatchedButtonChecked = alreadyWatched ? `` : `checked`;
   const isFavoriteButtonChecked = isFavorite ? `` : `checked`;
+  const commentsSection = new Comments(comments).getTemplate();
 
   return (
     `<section class="film-details">
@@ -121,28 +106,7 @@ export const createPopupFilmDetails = (film) => {
           <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
         </section>
       </div>
-
-      <div class="form-details__bottom-container">
-        <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
-
-          <ul class="film-details__comments-list">
-            ${commentsList}
-          </ul>
-
-          <div class="film-details__new-comment">
-            <div for="add-emoji" class="film-details__add-emoji-label"></div>
-
-            <label class="film-details__comment-label">
-              <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
-            </label>
-
-            <div class="film-details__emoji-list">
-              ${emojiList}
-            </div>
-          </div>
-        </section>
-      </div>
+      ${commentsSection}
     </form>
   </section>`
   );
@@ -180,6 +144,45 @@ export default class PopupFilmDetails extends AbstractSmart {
   setEmojiClickHandler(handler) {
     this.getElement().querySelector(`.film-details__emoji-list`)
     .addEventListener(`change`, handler);
+  }
+
+  setDeleteButtonClickHandler(handler) {
+    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+    Array.from(deleteButtons).forEach((button) => {
+      button.addEventListener(`click`, handler);
+    });
+  }
+
+  setAddCommentHandler(handler) {
+    const commentField = this.getElement().querySelector(`.film-details__comment-input`);
+    commentField.addEventListener(`keydown`, handler);
+  }
+
+  getCommentData() {
+    const emojiElement = this.getElement().querySelector(`.film-details__add-emoji-label`).firstElementChild;
+    const emojiName = emojiElement.alt.substring((`emoji-`).length);
+
+    const comment = encode(this.getElement().querySelector(`.film-details__comment-input`).value);
+    const date = moment().format();
+    const emotion = emojiElement ? emojiName : ``;
+
+    return {
+      id: String(new Date() + Math.random()),
+      text: comment,
+      emoji: emotion,
+      author: `User`,
+      date: formatCommentDate(date),
+    };
+  }
+
+  clearCommentData() {
+    const comment = this.getElement().querySelector(`.film-details__comment-input`);
+    comment.value = ``;
+    const emoji = this.getElement().querySelector(`.film-details__add-emoji-label`).firstElementChild;
+
+    if (emoji) {
+      emoji.remove();
+    }
   }
 
   recoveryListeners() {
