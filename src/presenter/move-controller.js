@@ -53,19 +53,22 @@ export default class MovieController {
       onFilmCardElementClick();
     });
 
-    this._filmCard.setWatchedButtonClickHandler(() => {
+    this._filmCard.setWatchedButtonClickHandler((evt) => {
+      evt.preventDefault();
       this._onDataChange(film, Object.assign({}, film, {
         alreadyWatched: !film.alreadyWatched,
       }));
     });
 
-    this._filmCard.setWatchlistButtonClickHandler(() => {
+    this._filmCard.setWatchlistButtonClickHandler((evt) => {
+      evt.preventDefault();
       this._onDataChange(film, Object.assign({}, film, {
         watchlist: !film.watchlist,
       }));
     });
 
-    this._filmCard.setFavoritesButtonClickHandler(() => {
+    this._filmCard.setFavoritesButtonClickHandler((evt) => {
+      evt.preventDefault();
       this._onDataChange(film, Object.assign({}, film, {
         isFavorite: !film.isFavorite,
       }));
@@ -106,6 +109,12 @@ export default class MovieController {
     } else {
       render(this._container, this._filmCard, RenderPosition.BEFOREEND);
     }
+  }
+
+  destroy() {
+    remove(this._filmCard);
+    remove(this._filmDetails);
+    document.removeEventListener(`keydown`, this._onEscKeyDown);
   }
 
   setDefaultView() {

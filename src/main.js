@@ -1,27 +1,29 @@
 import UserRank from "./view/user-rank";
-import MainNavigation from "./view/main-navigation";
+import FilterView from "./view/filter";
 import FilmsContainer from "./view/films-container";
 import MovieList from "./presenter/movie-list.js";
 import FooterStatistics from "./view/footer-statistics";
 import ExtraFilms from "./view/extra-films.js";
+import FilmsModel from "./models/films.js";
 import {generateFilms} from "./mock/film.js";
-import {generateFilters} from "./mock/filters.js";
 import {render, RenderPosition} from "./utils/render.js";
 
 const TOTAL_FILMS_AMOUNT = 20;
 const EXTRA_FILM_CARDS_AMOUNT = 2;
 
 const films = generateFilms(TOTAL_FILMS_AMOUNT);
-const filters = generateFilters();
+const filmsModel = new FilmsModel();
+filmsModel.setFilms(films);
 
 const siteHeader = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 
 render(siteHeader, new UserRank(), RenderPosition.BEFOREEND);
-render(siteMainElement, new MainNavigation(filters), RenderPosition.BEFOREEND);
+const filterController = new FilterView(siteMainElement, filmsModel);
+filterController.render();
 
 const filmsContainer = new FilmsContainer();
-const movieList = new MovieList(filmsContainer);
+const movieList = new MovieList(filmsContainer, filmsModel);
 
 render(siteMainElement, filmsContainer, RenderPosition.BEFOREEND);
 movieList.render(films);

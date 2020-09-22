@@ -143,6 +143,13 @@ const DATES = [
   `2013-06-05T17:14:49.575Z`,
 ];
 
+const FilterType = {
+  ALL: `All movies`,
+  WATCHLIST: `Watchlist`,
+  HISTORY: `History`,
+  FAVORITES: `Favorites`,
+};
+
 export {
   MAX_DESCRIPTION_DURATION,
   FILM_NAMES,
@@ -172,4 +179,5 @@ export {
   MAX_COMMENTS_AMOUNT,
   NUMBER_COMMAS,
   DATES,
+  FilterType,
 };
