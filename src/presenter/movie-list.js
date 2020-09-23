@@ -125,7 +125,7 @@ export default class MovieList {
   _updateFilms(count) {
     this._removeFilms();
     this._renderFilms(this._filmsModel.getFilms().slice(0, count));
-    this._renderLoadMoreButton();
+    this._renderShowMoreButton();
   }
 
   _onDataChange(movieController, oldData, newData) {

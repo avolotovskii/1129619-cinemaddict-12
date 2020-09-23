@@ -23,11 +23,6 @@ export default class Films {
     this._callHandlers(this._dataChangeHandlers);
   }
 
-  setFilter(filterType) {
-    this._activeFilterType = filterType;
-    this._callHandlers(this._filterChangeHandlers);
-  }
-
   updateFilm(id, film) {
     const index = this._films.findIndex((it) => it.id === id);
 
@@ -40,17 +35,5 @@ export default class Films {
     this._callHandlers(this._dataChangeHandlers);
 
     return true;
-  }
-
-  setFilterChangeHandler(handler) {
-    this._filterChangeHandlers.push(handler);
-  }
-
-  setDataChangeHandler(handler) {
-    this._dataChangeHandlers.push(handler);
-  }
-
-  _callHandlers(handlers) {
-    handlers.forEach((handler) => handler());
   }
 }
