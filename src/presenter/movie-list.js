@@ -2,7 +2,7 @@ import FilmsList from "../view/films-list.js";
 import SortFilms, {SortType} from "../view/sort-films.js";
 import LoadMoreButton from "../view/load-more-button";
 import NoFilms from "../view/no-films.js";
-import MoveController from "./move-controller.js";
+import MovieController from "./movie-controller.js";
 import ExtraFilmsContainer from "../view/extra-films-container.js";
 import {render, remove, RenderPosition} from "../utils/render.js";
 import {getDateFromString} from "../utils/common.js";
@@ -13,7 +13,7 @@ const FILM_CARDS_EXTRA = 2;
 
 const renderFilmCards = (filmsListElement, films, onDataChange, onViewChange) => {
   return films.map((film) => {
-    const movieController = new MoveController(filmsListElement, onDataChange, onViewChange);
+    const movieController = new MovieController(filmsListElement, onDataChange, onViewChange);
     movieController.render(film);
 
     return movieController;
