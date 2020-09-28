@@ -4,22 +4,20 @@ import {render, replace, RenderPosition} from "../utils/render.js";
 import {getFilmsByFilter} from "../utils/filter.js";
 
 export default class FilterPresenter {
-  constructor(container, filmsModel) {
+  constructor(container, filterModel, filmsModel) {
     this._container = container;
     this._filmsModel = filmsModel;
+    this._filterModel = filterModel;
 
     this._activeFilterType = FilterType.ALL;
     this._filterComponent = null;
 
-    this._onDataChange = this._onDataChange.bind(this);
     this._onFilterChange = this._onFilterChange.bind(this);
-
-    this._filmsModel.setDataChangeHandler(this._onDataChange);
   }
 
   render() {
     const container = this._container;
-    const allFilms = this._filmsModel.getFilmsAll();
+    const allFilms = this._filmsModel.getFilms();
 
     const filters = Object.values(FilterType).map((filterType) => {
       return {
@@ -41,11 +39,7 @@ export default class FilterPresenter {
   }
 
   _onFilterChange(filterType) {
-    this._filmsModel.setFilter(filterType);
+    this._filterModel.setFilter(`MAJOR`, filterType);
     this._activeFilterType = filterType;
-  }
-
-  _onDataChange() {
-    this.render();
   }
 }

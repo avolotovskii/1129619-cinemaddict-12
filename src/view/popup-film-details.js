@@ -184,12 +184,4 @@ export default class PopupFilmDetails extends AbstractSmart {
       emoji.remove();
     }
   }
-
-  recoveryListeners() {
-    this._subscribeOnEvents();
-  }
-
-  rerender() {
-    super.rerender();
-  }
 }

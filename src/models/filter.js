@@ -1,27 +1,18 @@
+import Observer from '../utils/observer.js';
 import {FilterType} from "../mock-data.js";
 
-export default class Filter {
+export default class Filter extends Observer {
   constructor() {
+    super();
     this._activeFilterType = FilterType.ALL;
-
-    this._dataChangeHandlers = [];
-    this._filterChangeHandlers = [];
   }
 
-  setFilter(filterType) {
+  setFilter(updateType, filterType) {
     this._activeFilterType = filterType;
-    this._callHandlers(this._filterChangeHandlers);
+    this._notify(updateType, filterType);
   }
 
-  setFilterChangeHandler(handler) {
-    this._filterChangeHandlers.push(handler);
-  }
-
-  setDataChangeHandler(handler) {
-    this._dataChangeHandlers.push(handler);
-  }
-
-  _callHandlers(handlers) {
-    handlers.forEach((handler) => handler());
+  getFilter() {
+    return this._activeFilterType;
   }
 }

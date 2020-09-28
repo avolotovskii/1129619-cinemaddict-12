@@ -1,26 +1,17 @@
-import {getFilmsByFilter} from "../utils/filter.js";
-import {FilterType} from "../mock-data.js";
+import Observer from '../utils/observer.js';
 
-export default class Films {
+export default class Films extends Observer {
   constructor() {
+    super();
     this._films = [];
-    this._activeFilterType = FilterType.ALL;
-
-    this._dataChangeHandlers = [];
-    this._filterChangeHandlers = [];
   }
 
   getFilms() {
-    return getFilmsByFilter(this._films, this._activeFilterType);
-  }
-
-  getFilmsAll() {
     return this._films;
   }
 
   setFilms(films) {
     this._films = Array.from(films);
-    this._callHandlers(this._dataChangeHandlers);
   }
 
   updateFilm(id, film) {
@@ -32,8 +23,7 @@ export default class Films {
 
     this._films = [].concat(this._films.slice(0, index), film, this._films.slice(index + 1));
 
-    this._callHandlers(this._dataChangeHandlers);
-
+    this._notify(id, film);
     return true;
   }
 }

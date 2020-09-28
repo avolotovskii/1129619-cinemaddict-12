@@ -119,9 +119,9 @@ export default class MovieController {
     });
 
     this._filmDetails.setAddCommentHandler((evt) => {
-      const isCtrlandEnter = evt.key === `Enter` && (evt.ctrlKey || evt.metaKey);
+      const isCtrlAndEnter = evt.key === `Enter` && (evt.ctrlKey || evt.metaKey);
 
-      if (isCtrlandEnter) {
+      if (isCtrlAndEnter) {
         const newComment = this._filmDetails.getCommentData();
         const newCommentsList = film.comments.concat(newComment);
 

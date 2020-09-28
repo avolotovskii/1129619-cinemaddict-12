@@ -13,7 +13,7 @@ export const getFavoriteFilms = (films) => {
 };
 
 export const getFilmsByFilter = (films, filterType) => {
-
+  // console.log(filterType);
   switch (filterType) {
     case FilterType.ALL:
       return Array.from(films);
