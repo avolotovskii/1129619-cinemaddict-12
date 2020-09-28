@@ -112,10 +112,10 @@ const FILM_DESCRIPTIONS = [
 ];
 
 const COMMENT_EMOJIS = [
-  `images/emoji/angry.png`,
-  `images/emoji/puke.png`,
-  `images/emoji/sleeping.png`,
-  `images/emoji/smile.png`,
+  `angry`,
+  `puke`,
+  `sleeping`,
+  `smile`,
 ];
 
 const COMMENT_TEXTS = [
@@ -145,9 +145,9 @@ const DATES = [
 
 const FilterType = {
   ALL: `All movies`,
-  WATCHLIST: `Watchlist`,
-  HISTORY: `History`,
-  FAVORITES: `Favorites`,
+  WATCHLIST: `Watchlist `,
+  HISTORY: `History `,
+  FAVORITES: `Favorites `,
 };
 
 export {

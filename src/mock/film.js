@@ -1,3 +1,5 @@
+import {nanoid} from "nanoid";
+
 import {
   FILM_NAMES,
   ORIGIN_TITLES,
@@ -38,6 +40,7 @@ import {
 
 const generateFilm = () => {
   return {
+    id: nanoid(),
     title: getRandomArrayItem(FILM_NAMES),
     alternativeTitle: getRandomArrayItem(ORIGIN_TITLES),
     rating: getRandomDecimalNumber(MIN_RATING, MAX_RATING).toFixed(NUMBER_COMMAS),
